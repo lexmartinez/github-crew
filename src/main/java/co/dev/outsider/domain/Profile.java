@@ -2,10 +2,14 @@ package co.dev.outsider.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document
 public class Profile implements Serializable{
 	
 	private static final long serialVersionUID = 8783328325917769997L;
 	
+	@Id
 	private Long id;
 	private String login;
 	private String avatar_url;

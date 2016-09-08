@@ -1,16 +1,21 @@
 package co.dev.outsider.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.dev.outsider.domain.Profile;
 import co.dev.outsider.hystrix.GithubAPICommand;
+import co.dev.outsider.repository.ProfileRepository;
 
 @Service
 public class AdvisorServiceImpl implements AdvisorService {
 
+	@Autowired
+	private ProfileRepository profileRepository;
+	
 	@Override
 	public Profile[] getPeople(String username) {
-		GithubAPICommand api = new GithubAPICommand(username);
+		GithubAPICommand api = new GithubAPICommand(username,profileRepository);
 		return api.execute();
 	}
 

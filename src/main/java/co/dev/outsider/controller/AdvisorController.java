@@ -1,5 +1,8 @@
 package co.dev.outsider.controller;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,16 @@ public class AdvisorController {
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces="application/json")
 	public ResponseEntity<Profile[]> getPeople(@PathVariable String username, @RequestParam(required=false) String max) {
 		try {
-			return new ResponseEntity<Profile[]>(advisorService.getPeople(username), HttpStatus.OK);
+			
+			Profile[] lista = advisorService.getPeople(username);
+			if(max!=null){
+				if(NumberUtils.isNumber(max)){
+					return new ResponseEntity<Profile[]>(Arrays.copyOf(lista, Integer.parseInt(max)), HttpStatus.OK);
+				}
+			}
+
+			return new ResponseEntity<Profile[]>(lista, HttpStatus.OK);
+			
 		} catch (Exception ex) {
 			logger.error("GET: /api/adviser/"+username, ex);
 			return new ResponseEntity<Profile[]>(HttpStatus.INTERNAL_SERVER_ERROR);
