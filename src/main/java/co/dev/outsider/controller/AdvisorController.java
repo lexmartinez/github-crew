@@ -22,7 +22,7 @@ public class AdvisorController {
 	private static final Logger logger = Logger.getLogger(AdvisorController.class);
 
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces="application/json")
-	public ResponseEntity<Profile[]> getPeople(@PathVariable String username, @RequestParam(required=false) String quantity) {
+	public ResponseEntity<Profile[]> getPeople(@PathVariable String username, @RequestParam(required=false) String max) {
 		try {
 			return new ResponseEntity<Profile[]>(advisorService.getPeople(username), HttpStatus.OK);
 		} catch (Exception ex) {
