@@ -14,18 +14,26 @@ public class GithubAPICommand extends HystrixCommand<Profile[]> {
 	private String username;
 	private ProfileRepository profileRepository;
 	private static final Logger logger = Logger.getLogger(GithubAPICommand.class);
+	private static GithubAPICommand instance;
 	
-	public GithubAPICommand(String username, ProfileRepository profileRepository) {
+	private GithubAPICommand(String username, ProfileRepository profileRepository) {
 		super(HystrixCommandGroupKey.Factory.asKey("github-crew"),30000);
 		this.username = username;
 		this.profileRepository = profileRepository;
+	}
+	
+	public static GithubAPICommand getInstance(String username, ProfileRepository profileRepository){
+		if(instance==null){
+			instance = new GithubAPICommand(username, profileRepository);
+		}
+		return instance;
 	}
 	
 	@Override
 	protected Profile[] run() throws Exception {
 		try{
 			RestTemplate restTemplate = new RestTemplate();
-			Profile[] list = restTemplate.getForObject("https://api.github.ddcom/users/"+username+"/following", Profile[].class);
+			Profile[] list = restTemplate.getForObject("https://api.github.com/users/"+username+"/following", Profile[].class);
 			
 			if(list.length == 0){
 				throw new Exception("No results");
@@ -40,8 +48,7 @@ public class GithubAPICommand extends HystrixCommand<Profile[]> {
 	
 	 @Override
 	 protected Profile[] getFallback() {
-		 MongoStorageCommand fallback = new MongoStorageCommand(profileRepository);
-		 return fallback.execute();
+		 return MongoStorageCommand.getInstance(profileRepository).execute();
 	 }
 
 }

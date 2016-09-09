@@ -15,8 +15,7 @@ public class AdvisorServiceImpl implements AdvisorService {
 	
 	@Override
 	public Profile[] getPeople(String username) {
-		GithubAPICommand api = new GithubAPICommand(username,profileRepository);
-		return api.execute();
+		return GithubAPICommand.getInstance(username,profileRepository).execute();
 	}
 
 }
