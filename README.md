@@ -16,7 +16,7 @@ With [Hystrix](https://github.com/Netflix/Hystrix) the advisor always return som
 
 + getPeople
 ```java
-    GET: github-crew/api/advisor/{username}
+    GET: github-crew/api/advisor/{username}?access_token={oauth-access-token}
 ```
 > You can add optionally request parameter `max` to specify max number of profiles that you wanna get
 
