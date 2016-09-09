@@ -9,18 +9,11 @@ import com.netflix.hystrix.HystrixCommandGroupKey;
 
 public class DevTeamCommand extends HystrixCommand<Profile[]> {
 
-	private static DevTeamCommand instance;
 	
-	private DevTeamCommand() {
+	public DevTeamCommand() {
 		super(HystrixCommandGroupKey.Factory.asKey("github-crew"),30000);
 	}
 	
-	public static DevTeamCommand getInstance(){
-		if(instance==null){
-			instance = new DevTeamCommand();
-		}
-		return instance;
-	}
 	
 	@Override
 	protected Profile[] run() throws Exception {

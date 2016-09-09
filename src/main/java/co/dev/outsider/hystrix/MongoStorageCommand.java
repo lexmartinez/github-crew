@@ -14,19 +14,12 @@ public class MongoStorageCommand extends HystrixCommand<Profile[]> {
 
 	private ProfileRepository profileRepository;
 	private static final Logger logger = Logger.getLogger(MongoStorageCommand.class);
-	private static MongoStorageCommand instance;
-	
-	private MongoStorageCommand(ProfileRepository profileRepository) {
+
+	public MongoStorageCommand(ProfileRepository profileRepository) {
 		super(HystrixCommandGroupKey.Factory.asKey("github-crew"),30000);
 		this.profileRepository = profileRepository;
 	}
 	
-	public static MongoStorageCommand getInstance(ProfileRepository profileRepository){
-		if(instance==null){
-			instance = new MongoStorageCommand(profileRepository);
-		}
-		return instance;
-	}
 	
 	@Override
 	protected Profile[] run() throws Exception {
@@ -47,7 +40,7 @@ public class MongoStorageCommand extends HystrixCommand<Profile[]> {
 	
 	 @Override
 	 protected Profile[] getFallback() {
-	     return DevTeamCommand.getInstance().execute();
+	     return new DevTeamCommand().execute();
 	 }
 
 }

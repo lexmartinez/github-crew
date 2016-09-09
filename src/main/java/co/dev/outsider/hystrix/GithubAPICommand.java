@@ -14,20 +14,13 @@ public class GithubAPICommand extends HystrixCommand<Profile[]> {
 	private String username;
 	private ProfileRepository profileRepository;
 	private static final Logger logger = Logger.getLogger(GithubAPICommand.class);
-	private static GithubAPICommand instance;
 	
-	private GithubAPICommand(String username, ProfileRepository profileRepository) {
+	public GithubAPICommand(String username, ProfileRepository profileRepository) {
 		super(HystrixCommandGroupKey.Factory.asKey("github-crew"),30000);
 		this.username = username;
 		this.profileRepository = profileRepository;
 	}
 	
-	public static GithubAPICommand getInstance(String username, ProfileRepository profileRepository){
-		if(instance==null){
-			instance = new GithubAPICommand(username, profileRepository);
-		}
-		return instance;
-	}
 	
 	@Override
 	protected Profile[] run() throws Exception {
@@ -48,7 +41,7 @@ public class GithubAPICommand extends HystrixCommand<Profile[]> {
 	
 	 @Override
 	 protected Profile[] getFallback() {
-		 return MongoStorageCommand.getInstance(profileRepository).execute();
+		 return new MongoStorageCommand(profileRepository).execute();
 	 }
 
 }
