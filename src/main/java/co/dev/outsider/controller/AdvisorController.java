@@ -1,6 +1,9 @@
 package co.dev.outsider.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
@@ -25,21 +28,30 @@ public class AdvisorController {
 	private static final Logger logger = Logger.getLogger(AdvisorController.class);
 
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces="application/json")
-	public ResponseEntity<Profile[]> getPeople(@PathVariable String username, @RequestParam(required=false) String max) {
+	public ResponseEntity<List<Profile>> getPeople(@PathVariable String username, 
+			@RequestParam String access_token,
+			@RequestParam(required=false) String max) {
 		try {
 			
-			Profile[] lista = advisorService.getPeople(username);
+			Profile[] list = advisorService.getPeople(username,access_token);
+			List<Profile> origin = new ArrayList<Profile>();
+			origin.addAll(Arrays.asList(list));
+			Collections.shuffle(origin);
+
 			if(max!=null){
 				if(NumberUtils.isNumber(max)){
-					return new ResponseEntity<Profile[]>(Arrays.copyOf(lista, Integer.parseInt(max)), HttpStatus.OK);
+					int top = Integer.parseInt(max);
+					if(top>origin.size())
+						top = origin.size();
+					return new ResponseEntity<List<Profile>>(origin.subList(0, top), HttpStatus.OK);
 				}
 			}
 
-			return new ResponseEntity<Profile[]>(lista, HttpStatus.OK);
+			return new ResponseEntity<List<Profile>>(origin, HttpStatus.OK);
 			
 		} catch (Exception ex) {
 			logger.error("GET: /api/adviser/"+username, ex);
-			return new ResponseEntity<Profile[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<Profile>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

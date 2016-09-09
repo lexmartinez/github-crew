@@ -4,6 +4,6 @@ import co.dev.outsider.domain.Profile;
 
 public interface AdvisorService {
 	
-	public Profile[] getPeople(String username);
+	public Profile[] getPeople(String username, String token);
 
 }
