@@ -12,7 +12,7 @@ With [Hystrix](https://github.com/Netflix/Hystrix) the advisor always return som
 #####Project Keywords: `Hystrix` `Github API` `Spring` `MongoDB` `Log4J` `Spring-Data` 
 
 
-## Service Endpoint
+## Service Endpoints
 
 + getPeople
 ```java
