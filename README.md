@@ -28,6 +28,6 @@ With [Hystrix](https://github.com/Netflix/Hystrix) the advisor always return som
 ## Demo Deployment
 A demo for this app is running on Heroku at 
 
-> https://github-crew.herokuapp.com/](https://github-crew.herokuapp.com/)
+> [https://github-crew.herokuapp.com/](https://github-crew.herokuapp.com/)
 
 ###### Deploy powered by [TravisCI](https://travis-ci.org/) & [Heroku](https://heroku.com)
