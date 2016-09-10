@@ -20,7 +20,7 @@ public class GithubAPICommand extends HystrixCommand<Profile[]> {
 	private ProfileRepository profileRepository;
 	private static final Logger logger = Logger.getLogger(GithubAPICommand.class);
 	
-	private static int SEARCH_DEPTH = 30;
+	private static int SEARCH_DEPTH = 50;
 	
 	public GithubAPICommand(String username, String token, ProfileRepository profileRepository) {
 		super(HystrixCommandGroupKey.Factory.asKey("github-crew"),30000);
