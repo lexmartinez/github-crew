@@ -1,4 +1,11 @@
 language: java
 script: mvn clean install
 jdk:
-  - oraclejdk8
+- oraclejdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: rGtl69IV7rhYNRQLtr1OEs+pcEa0HJyuz+c5G/aIdMxwaUKDK7LBMs+lDEuMMq6FZcTMPEoFuktduLsw92mqBIoSSKBc2TCLR12mVbxfs1nT1I6LpLIjaMgmV8cKh0A+j8y+JNH5aV7RuvMyDqvcF5olVzWnf4vv3wf6RUuzxYJQPkNvVzuGLDXaB7G+Juq5c+CKP1KFlxENByqB4LpFIQk0Lmp1DOOabEB5B2Rgr3dQrVckowOKrsVaqOY0UQejk61rbtRN4PKS6iIkEwKwhk13jPRSQyBVmoy2dgqgQcrckYUyRq0PE/7wZHSZzoE2vXX9Ho/T0yfdxYi10sCqxcAvecTfP0irGr6c+gGb4XNtJXIKSiZcU6XN2UOyAJY9/Cx0MjN8lzD4cFW1dn0CNm3+dZRpWboawp2H2bnRCsJh0sCPr0OtWW7aM49AAdfcdpSLwXqtVqSLFDOuJSnVwkPyb2Cy8Q8cjkrgKfGh4VHlXc6GORMYn98yuzmtA3jQU7qleLQgak3GamqaVAptn2RxAf0PAOlYx4OPb6Vbh/Veh+laA28+Fpchwul5iSElxvQZmv+kDiWqbAedO/1smQRFc1M0hhESYsdAAaiN7KnkSZjVj6oj3QvA4V+nwjOhdABPK3DcIcwJatNURNS70G0YyAIHHJ/wYzPe+Z/ALd4=
+  app: github-crew
+  on:
+    repo: lexmartinez/github-crew
