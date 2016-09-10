@@ -9,3 +9,5 @@ deploy:
   app: github-crew
   on:
     repo: lexmartinez/github-crew
+run:
+  - restart
