@@ -33,7 +33,7 @@
     <filter>
 		<description>CORSFilter</description>
 		<filter-name>CORSFilter</filter-name>
-		<filter-class>co.dev.outsiders.utils.CORSFilter</filter-class>
+		<filter-class>co.dev.outsider.utils.CORSFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
