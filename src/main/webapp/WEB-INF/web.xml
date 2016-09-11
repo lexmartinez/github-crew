@@ -29,6 +29,17 @@
         <servlet-name>HystrixMetricsStreamServlet</servlet-name>
         <url-pattern>/hystrix.stream</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+		<description>CORSFilter</description>
+		<filter-name>CORSFilter</filter-name>
+		<filter-class>co.dev.outsiders.utils.CORSFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CORSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 	<context-param>
